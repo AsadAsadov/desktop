@@ -7,3 +7,14 @@ psutil==6.0.0
 pywin32==306; platform_system == "Windows"
 opencv-python-headless==4.10.0.84
 waitress==3.0.0
+=======
+Flask
+gunicorn
+requests
+psutil
+Pillow
+Werkzeug
+Flask-WTF
+Flask-Limiter
+opencv-python-headless
+moviepy
