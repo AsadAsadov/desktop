@@ -1,0 +1,8 @@
+Flask
+gunicorn
+requests
+psutil
+Pillow
+Werkzeug
+Flask-WTF
+Flask-Limiter
