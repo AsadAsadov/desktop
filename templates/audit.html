@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Audit · Consent Monitor{% endblock %}
+{% block content %}
+<section class="table-card"><h1>Audit jurnalı</h1><table><thead><tr><th>Tarix</th><th>Actor</th><th>Hadisə</th><th>Cihaz</th><th>IP</th><th>Detallar</th></tr></thead><tbody>{% for l in logs %}<tr><td>{{ l.created_at }}</td><td>{{ l.actor }}</td><td>{{ l.action }}</td><td>{{ l.agent_name or '—' }}</td><td>{{ l.ip }}</td><td>{{ l.details }}</td></tr>{% endfor %}</tbody></table></section>
+{% endblock %}

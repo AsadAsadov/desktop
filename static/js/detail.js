@@ -1,0 +1,3 @@
+const img=document.getElementById('liveImage');const statusEl=document.getElementById('viewerStatus');const meta=document.getElementById('meta');
+async function tick(){try{const r=await fetch(`/api/agent/${window.AGENT_ID}/last`,{cache:'no-store'});if(!r.ok){statusEl.textContent='Görüntü yoxdur';return;}const d=await r.json();img.src=d.latest_url+'?t='+Date.now();statusEl.textContent=`Son görüntü: ${d.created_at} · ${d.status}`;meta.textContent=`${d.active_process||'—'} · ${d.active_window||'—'}`;}catch(e){statusEl.textContent='Bağlantı xətası';}}
+document.getElementById('fullscreenBtn').addEventListener('click',()=>{if(img.requestFullscreen)img.requestFullscreen();});tick();setInterval(tick,1000);
