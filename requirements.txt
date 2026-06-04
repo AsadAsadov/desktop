@@ -6,3 +6,5 @@ Pillow
 Werkzeug
 Flask-WTF
 Flask-Limiter
+opencv-python-headless
+moviepy
