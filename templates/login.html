@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Giriş · Consent Monitor{% endblock %}
+{% block content %}
+<section class="login-shell">
+  <form class="login-card" method="post">
+    <div class="brand-badge large">CM</div>
+    <h1>Admin girişi</h1>
+    <p>Yalnız şirkətə məxsus və razılıqla enroll edilmiş kompüterlər üçün.</p>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Email</label>
+    <input type="email" name="email" required autocomplete="username">
+    <label>Şifrə</label>
+    <input type="password" name="password" required autocomplete="current-password">
+    <button class="primary full" type="submit">Giriş</button>
+  </form>
+</section>
+{% endblock %}

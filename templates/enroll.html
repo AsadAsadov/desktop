@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Cihaz enroll · Consent Monitor{% endblock %}
+{% block content %}
+<section class="form-card"><h1>Cihaz tokeni yarat</h1><p>Token yalnız bir dəfə göstərilir. Tokeni yalnız idarə olunan və razılığı alınmış kompüterə daxil edin.</p>
+<form method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label>Cihaz adı</label><input name="name" required placeholder="Məs: FINANCE-PC-01"><button class="primary" type="submit">Token yarat</button></form>
+{% if generated_token %}<div class="token-box"><strong>DEVICE_TOKEN</strong><code>{{ generated_token }}</code><small>Bu dəyəri indi kopyalayın. Sonradan yenidən göstərilməyəcək.</small></div>{% endif %}</section>
+{% endblock %}

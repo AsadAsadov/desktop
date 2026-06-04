@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ agent.name }} · Viewer{% endblock %}
+{% block content %}
+<section class="viewer-head">
+  <div><h1>{{ agent.full_name or agent.name }}</h1><p>PC: {{ agent.name }}{% if agent.department %} · {{ agent.department }}{% endif %}</p><p id="meta" class="muted">{{ agent.active_process or '—' }} · {{ agent.active_window or '—' }}</p></div>
+  <div class="actions"><button class="secondary" id="fullscreenBtn">Fullscreen</button><a class="secondary" href="{{ url_for('gallery', agent_id=agent.id) }}">Qalereya</a></div>
+</section>
+<section class="viewer-card"><div class="viewer-status" id="viewerStatus">Yüklənir...</div><img id="liveImage" class="live-image" alt="Canlı ekran"></section>
+{% endblock %}
+{% block scripts %}<script>window.AGENT_ID={{ agent.id }};</script><script src="{{ url_for('static', filename='js/detail.js') }}?v=2"></script>{% endblock %}

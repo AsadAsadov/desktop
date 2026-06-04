@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · Consent Monitor{% endblock %}
+{% block content %}
+<section class="hero">
+  <div><h1>Canlı dashboard</h1><p>Son {{ keep_minutes }} dəqiqənin razılıqlı ekran görüntüləri göstərilir.</p></div>
+  <div class="filters">
+    <input id="search" placeholder="Ad, PC, aktiv tətbiq axtar...">
+    <select id="statusFilter"><option value="all">Bütün statuslar</option><option value="online">Online</option><option value="offline">Offline</option><option value="paused">Pauzada</option></select>
+    <input id="departmentFilter" placeholder="Şöbə">
+  </div>
+</section>
+<section class="stats">
+  <div><span id="totalCount">{{ agents|length }}</span><small>Ümumi</small></div>
+  <div class="green"><span id="onlineCount">{{ agents|selectattr('online')|list|length }}</span><small>Online</small></div>
+  <div class="red"><span id="offlineCount">{{ agents|rejectattr('online')|list|length }}</span><small>Offline/Pauza</small></div>
+</section>
+<section id="cards" class="card-grid">
+  {% for a in agents %}
+  <article class="agent-card" data-name="{{ (a.full_name or a.name)|lower }} {{ a.name|lower }} {{ (a.active_process or '')|lower }}" data-status="{{ 'paused' if a.status == 'paused' else ('online' if a.online else 'offline') }}" data-department="{{ (a.department or '')|lower }}" id="agent-{{ a.id }}">
+    <a class="thumb-link" href="{{ url_for('agent_detail', agent_id=a.id) }}"><img class="thumb" src="{{ url_for('screens', filename='agent_' ~ a.id ~ '_last.jpg') }}?t={{ a.last_seen or a.created_at }}" onerror="this.src='{{ url_for('static', filename='img-placeholder.svg') }}'" alt="{{ a.name }} ekran görüntüsü"></a>
+    <div class="card-body">
+      <div class="row"><h2>{{ a.full_name or a.name }}</h2><span class="pill {{ 'paused' if a.status == 'paused' else ('online' if a.online else 'offline') }}">{{ a.status_label }}</span></div>
+      <p>PC: {{ a.name }}{% if a.department %} · {{ a.department }}{% endif %}{% if a.role %} · {{ a.role }}{% endif %}</p>
+      <p class="muted">Aktiv tətbiq: {{ a.active_process or '—' }}</p>
+      <p class="muted">Pəncərə: {{ a.active_window or '—' }}</p>
+      <p class="muted">Son görünmə: {{ a.last_seen_display }}</p>
+      <div class="actions"><a class="secondary" href="{{ url_for('agent_detail', agent_id=a.id) }}">Böyük viewer</a><a class="secondary" href="{{ url_for('gallery', agent_id=a.id) }}">Qalereya</a></div>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/dashboard.js') }}?v=2"></script>{% endblock %}

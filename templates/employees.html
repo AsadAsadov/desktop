@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}İşçilər · Consent Monitor{% endblock %}
+{% block content %}
+<section class="form-card"><h1>İşçi məlumatı</h1><form method="post" class="employee-form"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label>Agent</label><select name="agent_id">{% for a in agents %}<option value="{{ a.id }}">{{ a.name }}</option>{% endfor %}</select><label>Ad Soyad</label><input name="full_name"><label>Email</label><input name="email" type="email"><label>Şöbə</label><input name="department"><label>Vəzifə</label><input name="role"><label>Telefon</label><input name="phone"><label>Qeyd</label><textarea name="note"></textarea><button class="primary" type="submit">Yadda saxla</button></form></section>
+<section class="table-card"><h2>Mövcud qeydlər</h2><table><thead><tr><th>Agent</th><th>Ad</th><th>Şöbə</th><th>Vəzifə</th><th>Email</th></tr></thead><tbody>{% for e in employees %}<tr><td>{{ e.linked_agent_name or e.agent_name }}</td><td>{{ e.full_name }}</td><td>{{ e.department }}</td><td>{{ e.role }}</td><td>{{ e.email }}</td></tr>{% endfor %}</tbody></table></section>
+{% endblock %}

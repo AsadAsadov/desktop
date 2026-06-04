@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ agent.name }} · Qalereya{% endblock %}
+{% block content %}
+<section class="viewer-head"><div><h1>Son {{ keep_minutes }} dəqiqə qalereyası</h1><p>{{ agent.name }}</p></div><button id="videoBtn" class="primary">Son 5 dəqiqədən video yarat</button></section>
+<div id="videoResult" class="muted"></div>
+<section id="gallery" class="gallery-grid"></section>
+{% endblock %}
+{% block scripts %}<script>window.AGENT_ID={{ agent.id }}; window.CSRF_TOKEN='{{ csrf_token() }}';</script><script src="{{ url_for('static', filename='js/gallery.js') }}?v=2"></script>{% endblock %}
